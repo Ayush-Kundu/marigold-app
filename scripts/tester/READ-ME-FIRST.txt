@@ -1,0 +1,43 @@
+MARIGOLD, TEST BUILD
+====================
+
+Marigold is an AI assistant that works on your Mac the way you do: it opens your apps,
+clicks and types in them, reads your calendar and mail, browses the web, and tells you what
+matters each day. It asks before it does anything consequential, and always asks before
+anything involving money.
+
+Because this is a test build (not yet notarized by Apple), macOS needs one extra step:
+
+  1. Drag Marigold into your Applications folder.
+  2. Open Terminal (Spotlight: type "Terminal") and paste this line, then press Return:
+
+         xattr -dr com.apple.quarantine /Applications/Marigold.app
+
+  3. Open Marigold from Applications. A setup screen walks you through the rest.
+
+What you'll need
+  • A Mac with Apple silicon (M1 or newer), macOS 13 or later.
+  • An AI: either the setup file someone sent you (Setup → "Got a setup file from someone?"),
+    or an API key from an AI provider (the setup screen has a link; about $5 of credit is plenty).
+  • Optional but recommended: a free search key from tavily.com (no card needed) pasted into
+    Setup → "Web search key". Without it the browser's search results are thin.
+  • About 700 MB of space (plus 600 MB if you turn on voice).
+
+Permissions it will ask for (all optional except the first two)
+  Accessibility and Screen Recording  – to see and operate your apps
+  Full Disk Access                    – only to notice texts that need an answer
+  Microphone                          – for dictating (Command-Shift-D) and for talking: click Talk,
+                                        then say "Hey Marigold" to start. Until you say it, nothing is kept.
+  Notifications                       – for your daily briefings (6 AM, 2 PM, 10 PM)
+
+Things to know
+  • The browser has a "Pulse" bar along the bottom (stocks, scores, weather, headlines). The gear
+    on it chooses what it tracks; the X hides it and "Show Pulse" brings it back.
+  • Everything is stored on your Mac. The only things that leave it are the requests sent
+    to the AI provider you choose, and Google's own APIs if you connect a Google account.
+  • To stop everything at any time: click the Marigold flower in the menu bar, then "Stop all tasks".
+  • Settings has a "Safety & permissions" screen: it shows every action Marigold took and lets
+    you revoke anything it remembered.
+
+Found a bug or something confusing? Tell whoever sent you this, and include what you asked
+Marigold to do and what happened.

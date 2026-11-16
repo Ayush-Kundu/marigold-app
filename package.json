@@ -1,0 +1,118 @@
+{
+  "name": "agent-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 127.0.0.1",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "app": "next build && electron .",
+    "app:dev": "electron .",
+    "app:pack": "sh scripts/build-notifier.sh && sh scripts/build-helpers.sh && next build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac dir && sh scripts/fix-framework-links.sh dist/mac-arm64/Marigold.app && sh scripts/pack-google-client.sh dist/mac-arm64/Marigold.app && sh scripts/vmp-sign.sh && sh scripts/sign-app.sh dist/mac-arm64/Marigold.app",
+    "release": "sh scripts/release.sh"
+  },
+  "dependencies": {
+    "@ghostery/adblocker-electron": "^2.20.3",
+    "@simplewebauthn/browser": "^13.3.0",
+    "@simplewebauthn/server": "^13.3.3",
+    "@supabase/supabase-js": "^2.118.0",
+    "@types/qrcode": "^1.5.6",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.66.0",
+    "next": "16.4.4",
+    "playwright-core": "^1.49.1",
+    "qrcode": "^1.5.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tailwind-merge": "^3.7.0",
+    "undici": "^6.21.2",
+    "zustand": "^5.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "electron": "github:castlabs/electron-releases#v36.9.5+wvcus",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.4",
+    "puppeteer-core": "^25.16.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "bin": {
+    "marigold": "bin/marigold.mjs"
+  },
+  "main": "electron/main.cjs",
+  "productName": "Marigold",
+  "build": {
+    "appId": "app.marigold.mac",
+    "productName": "Marigold",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": false,
+    "electronLanguages": [
+      "en"
+    ],
+    "files": [
+      "electron/**/*",
+      "!electron/assets/icon.iconset/**/*",
+      "electron/assets/icon.iconset/icon_512x512.png",
+      ".next/**/*",
+      "!.next/dev/**/*",
+      "!.next/cache/**/*",
+      "public/**/*",
+      "scripts/**/*",
+      "next.config.ts",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "electron/assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "identity": null,
+      "extendInfo": {
+        "NSAppleEventsUsageDescription": "Marigold controls your apps (Messages, Mail, Calendar, Notes, Music…) when you ask it to.",
+        "NSContactsUsageDescription": "Marigold looks up the people you mention so it can text, call or email them.",
+        "NSCalendarsUsageDescription": "Marigold reads and creates calendar events for you.",
+        "NSRemindersUsageDescription": "Marigold creates and completes reminders for you.",
+        "NSCalendarsFullAccessUsageDescription": "Marigold reads your calendar to remind you before things start and to plan with you.",
+        "NSRemindersFullAccessUsageDescription": "Marigold tells you when reminders are due and creates them when you ask.",
+        "NSAppleMusicUsageDescription": "Marigold plays and controls your music.",
+        "NSPhotoLibraryUsageDescription": "Marigold finds and exports photos when you ask.",
+        "NSMicrophoneUsageDescription": "Marigold listens only when you ask it to (voice requests, meeting notes).",
+        "NSCameraUsageDescription": "Marigold uses the camera only when you ask it to."
+      }
+    },
+    "electronDist": "node_modules/electron/dist",
+    "electronVersion": "36.9.5",
+    "extraResources": [
+      {
+        "from": "build/notifier/Marigold Notifier.app",
+        "to": "Marigold Notifier.app"
+      },
+      {
+        "from": "build/helpers",
+        "to": "helpers"
+      }
+    ],
+    "protocols": [
+      {
+        "name": "Marigold",
+        "schemes": [
+          "marigold"
+        ]
+      }
+    ]
+  }
+}

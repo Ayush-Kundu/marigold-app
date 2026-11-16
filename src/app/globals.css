@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --surface: #f7f7f8;
+  --surface-2: #ececef;
+  --surface-hover: #eaeaec;
+  --border: #e4e4e7;
+  --foreground: #0d0d0d;
+  --muted: #6b6b76;
+  --accent: #e8a317;
+  --accent-soft: #fbf0d6;
+  --accent-foreground: #231a05;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #0c0c0e;
+  --surface: #161619;
+  --surface-2: #1f1f23;
+  --surface-hover: #26262b;
+  --border: #2a2a30;
+  --foreground: #ededed;
+  --muted: #9a9aa6;
+  --accent: #f2b035;
+  --accent-soft: #2a2109;
+  --accent-foreground: #231a05;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --radius-lg: var(--radius);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Minimal, calm scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s infinite;
+}
+
+/* Marigold logo animations */
+@keyframes marigold-breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.25) rotate(14deg);
+  }
+}
+@keyframes marigold-twirl {
+  0%,
+  84% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  91% {
+    transform: translateY(-9px) rotate(190deg) scale(1.08);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+.marigold-stream {
+  transform-origin: center;
+  animation: marigold-breathe 0.75s ease-in-out infinite;
+}
+.marigold-idle {
+  transform-origin: center;
+  animation: marigold-twirl 10s ease-in-out infinite;
+}
+
+/* Marigold Browser loading bar */
+@keyframes mgload { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+
+/* "Press Esc to exit full screen" hint */
+@keyframes mgshake { 0%, 100% { transform: none; } 2% { transform: translateX(-3px) rotate(-4deg); } 5% { transform: translateX(3px) rotate(4deg); } 8% { transform: translateX(-3px) rotate(-4deg); } 11% { transform: translateX(3px) rotate(4deg); } 14% { transform: translateX(-2px) rotate(-2deg); } 17% { transform: none; } }
+body > * { transition: opacity 0.16s ease; }
+body.mg-fade > * { opacity: 0; }
+@keyframes mghint { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes mgtoast { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes mgtabin { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+@keyframes mgslide { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
